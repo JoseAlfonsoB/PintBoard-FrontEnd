@@ -1,49 +1,32 @@
 // src/App.jsx
 import React from 'react';
-import { Search, Plus } from 'lucide-react'; // Importamos iconos de lucide para probar
-import Button from './components/atoms/Button';
-import Input from './components/atoms/Input';
-import IconButton from './components/atoms/IconButton';
+import SearchBar from './components/molecules/SearchBar';
+import NavItem from './components/molecules/NavItem';
+import UserSummary from './components/molecules/UserSummary';
+import { Home, LayoutGrid, Settings } from 'lucide-react';
 
 const App = () => {
   return (
-    <div className="p-10 flex flex-col gap-8 bg-Neutral-50 min-h-screen">
-      <h1 className="text-redPrimary-300 text-3xl font-kaushan font-bold">
-        PintaBoard-FrontEnd Básico
-      </h1>
+    <section className="flex flex-col gap-4 p-4 border border-Neutral-200 rounded-lg">
+      <h2 className="font-lato font-bold text-CafeSecondary-400">Prueba de Moléculas</h2>
 
-      <section className="flex flex-col gap-4 p-4 border border-Neutral-200 rounded-lg">
-        <h2 className="font-lato font-bold text-CafeSecondary-400">Prueba de Botones</h2>
-        <div className="flex gap-4">
-          <Button variant="primary">Botón Primario</Button>
-          <Button variant="secondary" Icon={Plus}>Con Icono</Button>
-          <Button variant="outline">Contorno</Button>
-          <Button variant="ghost">Fantasma</Button>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="flex flex-col gap-4">
+          <h3 className="text-xs uppercase text-Neutral-400">Barra de Búsqueda</h3>
+          <SearchBar />
+
+          <h3 className="text-xs uppercase text-Neutral-400 mt-4">Perfil de Usuario</h3>
+          <UserSummary name="Alfonso B." role="Frontend Developer" />
         </div>
-      </section>
 
-      <section className="flex flex-col gap-4 p-4 border border-Neutral-200 rounded-lg">
-        <h2 className="font-lato font-bold text-CafeSecondary-400">Prueba de Input</h2>
-        <Input 
-          label="Nombre del Tablero" 
-          placeholder="Ej. Inspiración para recámara" 
-        />
-        <Input 
-          label="Email" 
-          error="Este campo es obligatorio" 
-          placeholder="correo@ejemplo.com" 
-        />
-      </section>
-
-      <section className="flex flex-col gap-4 p-4 border border-Neutral-200 rounded-lg">
-        <h2 className="font-lato font-bold text-CafeSecondary-400">Prueba de IconButtons</h2>
-        <div className="flex gap-4">
-          <IconButton Icon={Search} variant="primary" />
-          <IconButton Icon={Plus} variant="secondary" />
-          <IconButton Icon={Search} variant="neutral" />
+        <div className="flex flex-col gap-2 bg-white p-4 rounded-lg shadow-sm max-w-xs">
+          <h3 className="text-xs uppercase text-Neutral-400 mb-2">Menú de Navegación</h3>
+          <NavItem Icon={Home} label="Dashboard" isActive={true} />
+          <NavItem Icon={LayoutGrid} label="Mis Tableros" />
+          <NavItem Icon={Settings} label="Configuración" />
         </div>
-      </section>
-    </div>
+      </div>
+    </section>
   );
 };
 
