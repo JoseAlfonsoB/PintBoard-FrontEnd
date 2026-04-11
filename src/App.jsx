@@ -1,32 +1,47 @@
 // src/App.jsx
 import React from 'react';
-import SearchBar from './components/molecules/SearchBar';
-import NavItem from './components/molecules/NavItem';
-import UserSummary from './components/molecules/UserSummary';
-import { Home, LayoutGrid, Settings } from 'lucide-react';
+import Sidebar from './components/organisms/Sidebar';
+import TopBar from './components/organisms/TopBar';
+import BoardCard from './components/organisms/BoardCard';
 
 const App = () => {
+  // Datos de prueba (Mock Data)
+  const tablerosPrueba = [
+    { id: 1, title: "Inspiración Recámara", itemCount: 12, lastUpdated: "hace 2 días" },
+    { id: 2, title: "Proyecto PintBoard", itemCount: 45, lastUpdated: "hace 1 hora" },
+    { id: 3, title: "Recetas Saludables", itemCount: 8, lastUpdated: "ayer" },
+    { id: 4, title: "UI Design Patterns", itemCount: 24, lastUpdated: "hace 1 semana" },
+  ];
+
   return (
-    <section className="flex flex-col gap-4 p-4 border border-Neutral-200 rounded-lg">
-      <h2 className="font-lato font-bold text-CafeSecondary-400">Prueba de Moléculas</h2>
+    <div className="flex min-h-screen bg-Neutral-50">
+      <Sidebar />
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <div className="flex flex-col gap-4">
-          <h3 className="text-xs uppercase text-Neutral-400">Barra de Búsqueda</h3>
-          <SearchBar />
+      <div className="flex-1 ml-64 flex flex-col">
+        <TopBar />
 
-          <h3 className="text-xs uppercase text-Neutral-400 mt-4">Perfil de Usuario</h3>
-          <UserSummary name="Alfonso B." role="Frontend Developer" />
-        </div>
+        <main className="p-8">
+          <header className="mb-8 flex justify-between items-end">
+            <div>
+              <h2 className="text-2xl font-bold text-CafeSecondary-500 font-lato">Tus Tableros</h2>
+              <p className="text-CafeSecondary-300">Organiza tus ideas y proyectos visuales.</p>
+            </div>
+          </header>
 
-        <div className="flex flex-col gap-2 bg-white p-4 rounded-lg shadow-sm max-w-xs">
-          <h3 className="text-xs uppercase text-Neutral-400 mb-2">Menú de Navegación</h3>
-          <NavItem Icon={Home} label="Dashboard" isActive={true} />
-          <NavItem Icon={LayoutGrid} label="Mis Tableros" />
-          <NavItem Icon={Settings} label="Configuración" />
-        </div>
+          {/* Grid de Organismos */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            {tablerosPrueba.map((tablero) => (
+              <BoardCard
+                key={tablero.id}
+                title={tablero.title}
+                itemCount={tablero.itemCount}
+                lastUpdated={tablero.lastUpdated}
+              />
+            ))}
+          </div>
+        </main>
       </div>
-    </section>
+    </div>
   );
 };
 
