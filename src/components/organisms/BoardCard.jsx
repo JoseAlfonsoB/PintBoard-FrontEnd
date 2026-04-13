@@ -2,10 +2,18 @@
 import React from 'react';
 import { MoreVertical, Layers } from 'lucide-react';
 import IconButton from '../atoms/IconButton';
+import { Link } from 'react-router-dom'; // Paso 1: Importar Link
 
-const BoardCard = ({ title, itemCount, lastUpdated, coverImage }) => {
+// Agregamos 'id' a las props para saber a qué pin ir
+const BoardCard = ({ id, title, itemCount, lastUpdated, coverImage }) => {
     return (
-        <div className="group bg-white rounded-2xl overflow-hidden border border-Neutral-200 hover:border-redPrimary-200 hover:shadow-xl transition-all duration-300 cursor-pointer">
+        /* Cambiamos el div principal por Link. 
+           Nota: Usamos `to` para definir la ruta dinámica /pin/1, /pin/2, etc.
+        */
+        <Link
+            to={`/pin/${id}`}
+            className="group bg-white rounded-2xl overflow-hidden border border-Neutral-200 hover:border-redPrimary-200 hover:shadow-xl transition-all duration-300 cursor-pointer block"
+        >
             {/* Contenedor de Imagen de Portada */}
             <div className="relative h-44 w-full bg-Neutral-200 overflow-hidden">
                 {coverImage ? (
@@ -20,14 +28,18 @@ const BoardCard = ({ title, itemCount, lastUpdated, coverImage }) => {
                     </div>
                 )}
 
-                {/* Overlay con botón de opciones (aparece en hover) */}
+                {/* Overlay con botón de opciones */}
                 <div className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity">
                     <IconButton
                         Icon={MoreVertical}
                         variant="neutral"
                         className="bg-white/90 backdrop-blur-sm shadow-sm"
                         onClick={(e) => {
-                            e.stopPropagation(); // Evita que el clic abra el tablero
+                            /* MUY IMPORTANTE: e.preventDefault() evita que al hacer clic 
+                               en el botón de opciones también se abra la página del Pin.
+                            */
+                            e.preventDefault();
+                            e.stopPropagation();
                             console.log("Opciones del tablero");
                         }}
                     />
@@ -50,7 +62,7 @@ const BoardCard = ({ title, itemCount, lastUpdated, coverImage }) => {
                     <span>Actualizado {lastUpdated}</span>
                 </div>
             </div>
-        </div>
+        </Link>
     );
 };
 

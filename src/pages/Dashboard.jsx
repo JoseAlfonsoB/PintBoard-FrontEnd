@@ -19,6 +19,7 @@ const Dashboard = () => {
                 {tablerosPrueba.map((tablero) => (
                     <BoardCard
                         key={tablero.id}
+                        id={tablero.id} // <--- ¡Esta línea es la que arregla el 'undefined'!
                         title={tablero.title}
                         itemCount={tablero.itemCount}
                         lastUpdated={tablero.lastUpdated}
