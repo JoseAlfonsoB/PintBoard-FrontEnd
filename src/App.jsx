@@ -6,6 +6,7 @@ import Dashboard from './pages/Dashboard'
 import Crear from './pages/Crear'
 import Categorias from './pages/Categorias'
 import PinDetail from './pages/PinDetail';
+import Profile from './pages/Profile';
 
 const App = () => {
   return (
@@ -15,6 +16,7 @@ const App = () => {
         <Route path="crear" element={<Crear />} />
         <Route path="categorias" element={<Categorias />} />
         <Route path="pin/:id" element={<PinDetail />} /> {/* <--- NUEVA RUTA DINÁMICA */}
+        <Route path="perfil" element={<Profile />} />
       </Route>
 
       <Route path="*" element={<Navigate to="/" />} />

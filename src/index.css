@@ -1,29 +1,54 @@
-@import 'tailwindcss';
+@import "tailwindcss";
 
 @theme {
   /* Color Rojo */
-  --color-redPrimary-100: #FFC7C7;
-  --color-redPrimary-200: #FFA0A0;
-  --color-redPrimary-300: #FF5252; /* ESTE ES EL COLOR ORIGINAL */
-  --color-redPrimary-400: #F83B3B;
-  --color-redPrimary-550: #E51D1D;
+  --color-redPrimary-100: #ffc7c7;
+  --color-redPrimary-200: #ffa0a0;
+  --color-redPrimary-300: #ff5252; /* ESTE ES EL COLOR ORIGINAL */
+  --color-redPrimary-400: #f83b3b;
+  --color-redPrimary-550: #e51d1d;
   /* Color Gris Oscuro */
-  --color-CafeSecondary-100: #DBCDCC;
-  --color-CafeSecondary-200: #B19895;
-  --color-CafeSecondary-300: #926E6C; /* ESTE ES EL COLOR ORIGINAL */
-  --color-CafeSecondary-400: #5F4B46;
-  --color-CafeSecondary-500: #4B3835;
+  --color-CafeSecondary-100: #dbcdcc;
+  --color-CafeSecondary-200: #b19895;
+  --color-CafeSecondary-300: #926e6c; /* ESTE ES EL COLOR ORIGINAL */
+  --color-CafeSecondary-400: #5f4b46;
+  --color-CafeSecondary-500: #4b3835;
 
   /* Color Gris Claro */
-  --color-tertiary-100: #BA9855;
-  --color-tertiary-200: #AA8548;
-  --color-tertiary-300: #986F3E; /* ESTE ES EL COLOR ORIGINAL */
+  --color-tertiary-100: #ba9855;
+  --color-tertiary-200: #aa8548;
+  --color-tertiary-300: #986f3e; /* ESTE ES EL COLOR ORIGINAL */
   --color-tertiary-400: #765132;
-  --color-tertiary-500: #64442F;
+  --color-tertiary-500: #64442f;
   /* Color Blanco */
-  --color-Neutral-50: #FAFAFA;
-  --color-Neutral-100: #F7F7F7; /* ESTE ES EL COLOR ORIGINAL */
-  --color-Neutral-200: #E6E6E6; 
-  --color-Neutral-300: #D6D6D6;
-  --color-Neutral-400: #A5A5A5;
+  --color-Neutral-50: #fafafa;
+  --color-Neutral-100: #f7f7f7; /* ESTE ES EL COLOR ORIGINAL */
+  --color-Neutral-200: #e6e6e6;
+  --color-Neutral-300: #d6d6d6;
+  --color-Neutral-400: #a5a5a5;
+
+  /* Definimos los movimientos (Keyframes) */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes slideUp {
+    from {
+      transform: translateY(20px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  /* Definimos las utilidades de animación */
+  --animate-fadeIn: fadeIn 0.3s ease-out forwards;
+  --animate-slideUp: slideUp 0.4s ease-out forwards;
 }
