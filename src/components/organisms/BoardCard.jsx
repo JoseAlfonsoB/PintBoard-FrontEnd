@@ -34,7 +34,7 @@ const BoardCard = ({ id, title, itemCount, lastUpdated, coverImage }) => {
 
     return (
         <Link
-            to={`/pin/${id}`}
+            to={`/app/pin/${id}`}
             className="group bg-white rounded-2xl overflow-hidden border border-Neutral-200 hover:border-redPrimary-200 hover:shadow-xl transition-all duration-300 cursor-pointer block"
         >
             <div className="relative h-44 w-full bg-Neutral-200 overflow-hidden">

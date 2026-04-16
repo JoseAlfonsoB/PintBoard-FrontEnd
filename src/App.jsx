@@ -28,8 +28,13 @@ const App = () => {
         <Route path="categorias" element={<Categorias />} />
         <Route path="pin/:id" element={<PinDetail />} />
         <Route path="perfil" element={<Profile />} />
-      </Route>
 
+      </Route>
+      
+      {/* RUTAS DE COMPATIBILIDAD (Fuera de /app) */}
+      <Route path="/dashboard" element={<Navigate to="/app/dashboard" replace />} />
+      <Route path="/perfil" element={<Navigate to="/app/perfil" replace />} />
+      
       {/* Redirección de seguridad: Cualquier ruta desconocida vuelve a la Landing */}
       <Route path="*" element={<Navigate to="/" />} />
     </Routes>

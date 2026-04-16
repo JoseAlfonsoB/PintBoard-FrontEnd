@@ -6,9 +6,9 @@ import UserSummary from '../molecules/UserSummary';
 
 const Sidebar = () => {
     const menuItems = [
-        { label: 'Dashboard', icon: Home, to: '/' },
-        { label: 'Crear', icon: PlusCircle, to: '/crear' },
-        { label: 'Categorías', icon: LayoutGrid, to: '/categorias' },
+        { label: 'Dashboard', icon: Home, to: '/app/' },
+        { label: 'Crear', icon: PlusCircle, to: '/app/crear' },
+        { label: 'Categorías', icon: LayoutGrid, to: '/app/categorias' },
     ];
 
     return (
