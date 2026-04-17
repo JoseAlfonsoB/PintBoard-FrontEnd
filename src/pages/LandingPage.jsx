@@ -38,18 +38,6 @@ const LandingPage = () => {
                 <p className="text-xl text-CafeSecondary-300 mb-10 max-w-2xl mx-auto leading-relaxed">
                     Descubre, guarda y organiza lo que te inspira en una experiencia visual única diseñada para el proceso creativo moderno.
                 </p>
-                <div className="flex justify-center gap-4">
-                    <Button
-                        variant="primary"
-                        className="rounded-full px-10 py-4 text-lg font-bold shadow-lg"
-                        onClick={() => navigate('/register')}
-                    >
-                        Empezar ahora
-                    </Button>
-                    <button className="px-10 py-4 bg-Neutral-100 text-CafeSecondary-500 rounded-full font-bold hover:bg-Neutral-200 transition-all text-lg">
-                        Saber más
-                    </button>
-                </div>
             </header>
 
             {/* MASONRY GRID SECTION */}
@@ -93,7 +81,7 @@ const LandingPage = () => {
                         onClick={() => navigate('/register')}
                         className="bg-black text-white px-12 py-4 rounded-full font-bold text-lg hover:scale-105 transition-transform shadow-xl"
                     >
-                        Comienza gratis hoy
+                        Regresar al inicio
                     </button>
                 </div>
             </section>
