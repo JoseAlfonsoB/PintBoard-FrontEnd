@@ -19,10 +19,6 @@ const TopBar = () => {
                     {/* Punto de notificación (opcional) */}
                     <span className="absolute top-2 right-2 w-2 h-2 bg-redPrimary-300 rounded-full"></span>
                 </IconButton>
-
-                <Button variant="primary" Icon={Plus}>
-                    Nuevo Tablero
-                </Button>
             </div>
         </header>
     );
