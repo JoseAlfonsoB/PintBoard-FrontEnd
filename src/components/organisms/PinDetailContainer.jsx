@@ -91,32 +91,6 @@ const PinDetailContainer = ({ pinData }) => {
                     </div>
                 </div>
             </div>
-
-            {/* COLUMNA DERECHA (Se mantiene igual) */}
-            <div className="flex-1 flex flex-col gap-6">
-                <div className="flex items-center justify-between px-2">
-                    <h3 className="font-lato font-bold text-xl text-CafeSecondary-500">More like this</h3>
-                    <button className="text-Neutral-400">
-                        <Share2 size={18} />
-                    </button>
-                </div>
-
-                <div className="grid grid-cols-1 gap-4">
-                    {suggestions.map(item => (
-                        <BoardCard
-                            key={item.id}
-                            id={item.id}
-                            title={item.title}
-                            itemCount={item.itemCount}
-                            lastUpdated={item.lastUpdated}
-                        />
-                    ))}
-                </div>
-
-                <button className="w-full py-4 bg-Neutral-100 text-CafeSecondary-400 font-bold rounded-2xl hover:bg-Neutral-200 transition-all mt-4">
-                    Load more content
-                </button>
-            </div>
         </div>
     );
 };
