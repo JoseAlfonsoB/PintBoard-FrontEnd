@@ -22,13 +22,7 @@ const LandingNavbar = ({ onLoginClick }) => {
                 >
                     Log In
                 </button>
-                <Button
-                    variant="primary"
-                    className="rounded-full px-6 py-2 text-sm shadow-md"
-                    onClick={() => navigate('/register')}
-                >
-                    Sign Up
-                </Button>
+                
             </div>
         </nav>
     );
