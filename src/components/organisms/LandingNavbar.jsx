@@ -11,10 +11,6 @@ const LandingNavbar = ({ onLoginClick }) => {
             <div className="text-redPrimary-300 font-bold text-2xl tracking-tighter cursor-pointer" onClick={() => navigate('/')}>
                 PintaBoard
             </div>
-            <div className="hidden md:flex gap-10 text-CafeSecondary-500 font-semibold text-sm">
-                <a href="#explorar" className="hover:text-redPrimary-300 transition-colors">Explorar</a>
-                <a href="#about" className="hover:text-redPrimary-300 transition-colors">Sobre nosotros</a>
-            </div>
             <div className="flex items-center gap-6">
                 <button
                     onClick={onLoginClick}
