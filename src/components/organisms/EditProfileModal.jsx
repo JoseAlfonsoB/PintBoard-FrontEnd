@@ -35,10 +35,10 @@ const EditProfileModal = ({ isOpen, onClose }) => {
                     <Input label="Nombre de usuario" placeholder="@usuario" defaultValue="josealfonso_ba" />
                     
                     <div className="flex gap-4 mt-4">
-                        <Button variant="neutral" className="flex-1 rounded-full" onClick={onClose}>
+                        <Button variant="neutral" className="px-6 py-2.5 bg-Neutral-100 text-CafeSecondary-500 rounded-full font-bold hover:bg-Neutral-200 transition-colors cursor-pointer" onClick={onClose}>
                             Cancelar
                         </Button>
-                        <Button variant="primary" className="flex-1 rounded-full border-none" type="submit">
+                        <Button variant="primary" className="flex-1 rounded-full border-none cursor-pointer" type="submit">
                             Guardar cambios
                         </Button>
                     </div>

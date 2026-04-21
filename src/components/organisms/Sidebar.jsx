@@ -30,7 +30,7 @@ const Sidebar = () => {
                     <div className="w-8 h-8 bg-redPrimary-300 rounded-lg flex items-center justify-center">
                         <span className="text-white font-bold text-xl font-kaushan">P</span>
                     </div>
-                    <h1 className="text-xl font-kaushan font-bold text-redPrimary-300">PintaBoard</h1>
+                    <h1 className="text-xl font-kaushan font-bold text-redPrimary-300">PintBoard</h1>
                 </div>
 
                 {/* Navegación dinámica */}
