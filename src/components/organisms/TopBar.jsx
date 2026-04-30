@@ -1,9 +1,6 @@
 // src/components/organisms/TopBar.jsx
 import React from 'react';
-import { Bell, Plus } from 'lucide-react';
 import SearchBar from '../molecules/SearchBar';
-import IconButton from '../atoms/IconButton';
-import Button from '../atoms/Button';
 
 const TopBar = () => {
     return (
@@ -11,14 +8,6 @@ const TopBar = () => {
             {/* Buscador */}
             <div className="flex-1 max-w-xl">
                 <SearchBar />
-            </div>
-
-            {/* Acciones */}
-            <div className="flex items-center gap-4">
-                <IconButton Icon={Bell} variant="neutral" className="relative">
-                    {/* Punto de notificación (opcional) */}
-                    <span className="absolute top-2 right-2 w-2 h-2 bg-redPrimary-300 rounded-full"></span>
-                </IconButton>
             </div>
         </header>
     );

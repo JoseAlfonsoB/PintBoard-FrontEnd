@@ -1,13 +1,32 @@
 // src/App.jsx
 import React from 'react'
 import { Routes, Route, Navigate } from 'react-router-dom'
+import { useAuth } from './context/AuthContext'
 import MainLayout from './layouts/MainLayout'
-import LandingPage from './pages/LandingPage' // <--- Nueva página de presentación
+import LandingPage from './pages/LandingPage'
 import Dashboard from './pages/Dashboard'
 import Crear from './pages/Crear'
 import Categorias from './pages/Categorias'
 import PinDetail from './pages/PinDetail';
 import Profile from './pages/Profile';
+
+// Componente para proteger rutas privadas
+const ProtectedRoute = ({ children }) => {
+  const { isAuthenticated, loading } = useAuth();
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-Neutral-50">
+        <div className="flex flex-col items-center gap-4">
+          <div className="w-10 h-10 border-4 border-redPrimary-300 border-t-transparent rounded-full animate-spin"></div>
+          <p className="text-CafeSecondary-300 font-lato">Cargando...</p>
+        </div>
+      </div>
+    );
+  }
+
+  return isAuthenticated ? children : <Navigate to="/" replace />;
+};
 
 const App = () => {
   return (
@@ -15,12 +34,12 @@ const App = () => {
       {/* 1. RUTA PÚBLICA: No usa MainLayout porque no lleva Sidebar */}
       <Route path="/" element={<LandingPage />} />
 
-      {/* 2. RUTAS DE ACCESO (Próximamente) */}
-      {/* <Route path="/login" element={<LoginPage />} /> */}
-      {/* <Route path="/register" element={<RegisterPage />} /> */}
-
-      {/* 3. RUTAS PRIVADAS: Todas envueltas en MainLayout (Dashboard, Perfil, etc.) */}
-      <Route path="/app" element={<MainLayout />}>
+      {/* 2. RUTAS PRIVADAS: Todas envueltas en MainLayout (Dashboard, Perfil, etc.) */}
+      <Route path="/app" element={
+        <ProtectedRoute>
+          <MainLayout />
+        </ProtectedRoute>
+      }>
         {/* Al entrar a /app, redirigimos por defecto al dashboard */}
         <Route index element={<Navigate to="dashboard" replace />} />
         <Route path="dashboard" element={<Dashboard />} />
@@ -28,7 +47,6 @@ const App = () => {
         <Route path="categorias" element={<Categorias />} />
         <Route path="pin/:id" element={<PinDetail />} />
         <Route path="perfil" element={<Profile />} />
-
       </Route>
       
       {/* RUTAS DE COMPATIBILIDAD (Fuera de /app) */}

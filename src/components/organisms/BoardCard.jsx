@@ -2,35 +2,9 @@
 import React from 'react';
 import { MoreVertical, Layers } from 'lucide-react';
 import IconButton from '../atoms/IconButton';
-import Button from '../atoms/Button'; // Importamos tu átomo Button
 import { Link } from 'react-router-dom';
 
 const BoardCard = ({ id, title, itemCount, lastUpdated, coverImage }) => {
-
-    // Función para manejar el guardado del Pin
-    const handleSave = (e) => {
-        e.preventDefault(); // Evita que el Link nos redireccione al detalle
-        e.stopPropagation(); // Evita que eventos se propaguen a elementos padre
-
-        // Creamos el objeto del pin a guardar
-        const pinToSave = {
-            id,
-            title,
-            image: coverImage
-        };
-
-        // Lógica de persistencia en localStorage
-        const currentSaved = JSON.parse(localStorage.getItem('savedPins')) || [];
-
-        // Verificamos si ya existe para evitar duplicados
-        if (!currentSaved.find(p => p.id === id)) {
-            const updated = [...currentSaved, pinToSave];
-            localStorage.setItem('savedPins', JSON.stringify(updated));
-            alert(`¡"${title}" se ha guardado en tu perfil!`);
-        } else {
-            alert("Este pin ya está en tus guardados.");
-        }
-    };
 
     return (
         <Link
@@ -43,6 +17,7 @@ const BoardCard = ({ id, title, itemCount, lastUpdated, coverImage }) => {
                         src={coverImage}
                         alt={title}
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        onError={(e) => { e.target.style.display = 'none'; }}
                     />
                 ) : (
                     <div className="w-full h-full flex items-center justify-center bg-tertiary-100/20">
@@ -50,18 +25,7 @@ const BoardCard = ({ id, title, itemCount, lastUpdated, coverImage }) => {
                     </div>
                 )}
 
-                {/* --- NUEVO BOTÓN DE SAVE --- */}
-                <div className="absolute top-3 left-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10">
-                    <Button
-                        variant="primary"
-                        className="rounded-full px-5 py-1.5 shadow-lg border-none text-sm"
-                        onClick={handleSave}
-                    >
-                        Save
-                    </Button>
-                </div>
-
-                {/* Overlay con botón de opciones (Se mantiene igual) */}
+                {/* Overlay con botón de opciones */}
                 <div className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity">
                     <IconButton
                         Icon={MoreVertical}
@@ -70,7 +34,6 @@ const BoardCard = ({ id, title, itemCount, lastUpdated, coverImage }) => {
                         onClick={(e) => {
                             e.preventDefault();
                             e.stopPropagation();
-                            console.log("Opciones del tablero");
                         }}
                     />
                 </div>
@@ -78,7 +41,7 @@ const BoardCard = ({ id, title, itemCount, lastUpdated, coverImage }) => {
 
             <div className="p-5">
                 <div className="flex justify-between items-start mb-2">
-                    <h3 className="font-lato font-bold text-CafeSecondary-500 text-lg group-hover:text-redPrimary-300 transition-colors">
+                    <h3 className="font-lato font-bold text-CafeSecondary-500 text-lg group-hover:text-redPrimary-300 transition-colors truncate">
                         {title}
                     </h3>
                 </div>

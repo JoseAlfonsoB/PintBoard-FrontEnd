@@ -1,29 +1,62 @@
 // src/components/organisms/LoginModal.jsx
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-// 1. Importamos EyeOff para el estado de "oculto"
 import { Mail, Lock, X, Eye, EyeOff, User } from 'lucide-react';
 import Input from '../atoms/Input';
 import Button from '../atoms/Button';
+import { useAuth } from '../../context/AuthContext';
 
 const LoginModal = ({ isOpen, onClose }) => {
     const navigate = useNavigate();
+    const { login, register } = useAuth();
 
     const [isRegistering, setIsRegistering] = useState(false);
-    // 2. Estado para controlar la visibilidad de la contraseña
     const [showPassword, setShowPassword] = useState(false);
+    const [formData, setFormData] = useState({ name: '', email: '', password: '' });
+    const [error, setError] = useState('');
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
     if (!isOpen) return null;
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        navigate('/app/dashboard');
-        onClose();
+    const handleChange = (field) => (e) => {
+        setFormData(prev => ({ ...prev, [field]: e.target.value }));
+        setError(''); // Limpiar errores al escribir
     };
 
-    // 3. Función para alternar el estado
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setError('');
+        setIsSubmitting(true);
+
+        try {
+            if (isRegistering) {
+                if (!formData.name.trim()) {
+                    setError('El nombre es obligatorio');
+                    setIsSubmitting(false);
+                    return;
+                }
+                await register(formData.name, formData.email, formData.password);
+            } else {
+                await login(formData.email, formData.password);
+            }
+            
+            onClose();
+            navigate('/app/dashboard');
+        } catch (err) {
+            setError(err.message || 'Error de autenticación');
+        } finally {
+            setIsSubmitting(false);
+        }
+    };
+
     const togglePasswordVisibility = () => {
         setShowPassword(!showPassword);
+    };
+
+    const switchMode = () => {
+        setIsRegistering(!isRegistering);
+        setError('');
+        setFormData({ name: '', email: '', password: '' });
     };
 
     return (
@@ -39,17 +72,38 @@ const LoginModal = ({ isOpen, onClose }) => {
                     <h2 className="text-redPrimary-300 text-3xl font-bold tracking-tighter mb-2">PintaBoard</h2>
                 </div>
 
+                {/* Mensaje de error */}
+                {error && (
+                    <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-xl text-red-600 text-sm text-center animate-fadeIn">
+                        {error}
+                    </div>
+                )}
+
                 <form onSubmit={handleSubmit} className="space-y-5">
                     {isRegistering && (
                         <div className="space-y-2 animate-fadeIn">
                             <label className="text-xs font-bold text-CafeSecondary-300 uppercase ml-2 text-[10px]">Nombre completo</label>
-                            <Input icon={User} type="text" placeholder="Alfonso Bautista" required />
+                            <Input 
+                                icon={User} 
+                                type="text" 
+                                placeholder="Alfonso Bautista" 
+                                value={formData.name}
+                                onChange={handleChange('name')}
+                                required 
+                            />
                         </div>
                     )}
 
                     <div className="space-y-2 text-[14px]">
                         <label className="text-xs font-bold text-CafeSecondary-300 uppercase ml-2">Correo eléctronico</label>
-                        <Input icon={Mail} type="email" placeholder="name@curator.com" required />
+                        <Input 
+                            icon={Mail} 
+                            type="email" 
+                            placeholder="name@curator.com" 
+                            value={formData.email}
+                            onChange={handleChange('email')}
+                            required 
+                        />
                     </div>
 
                     <div className="space-y-2 text-[14px]">
@@ -57,14 +111,14 @@ const LoginModal = ({ isOpen, onClose }) => {
                             <label className="text-xs font-bold text-CafeSecondary-300 uppercase">Contraseña</label>
                         </div>
                         <div className="relative">
-                            {/* 4. El type ahora es dinámico: 'text' o 'password' */}
                             <Input
                                 icon={Lock}
                                 type={showPassword ? 'text' : 'password'}
                                 placeholder="********"
+                                value={formData.password}
+                                onChange={handleChange('password')}
                                 required
                             />
-                            {/* 5. Botón con icono dinámico y evento onClick */}
                             <button
                                 type="button"
                                 onClick={togglePasswordVisibility}
@@ -79,8 +133,20 @@ const LoginModal = ({ isOpen, onClose }) => {
                         </div>
                     </div>
 
-                    <Button variant="primary" type="submit" className="w-full py-4 rounded-2xl text-lg font-bold shadow-red-200 shadow-lg mt-4">
-                        {isRegistering ? 'Crear cuenta' : 'Iniciar sesión en PintaBoard →'}
+                    <Button 
+                        variant="primary" 
+                        type="submit" 
+                        className={`w-full py-4 rounded-2xl text-lg font-bold shadow-red-200 shadow-lg mt-4 ${isSubmitting ? 'opacity-70 cursor-not-allowed' : ''}`}
+                        disabled={isSubmitting}
+                    >
+                        {isSubmitting ? (
+                            <span className="flex items-center justify-center gap-2">
+                                <span className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
+                                Procesando...
+                            </span>
+                        ) : (
+                            isRegistering ? 'Crear cuenta' : 'Iniciar sesión en PintaBoard →'
+                        )}
                     </Button>
                 </form>
 
@@ -88,7 +154,7 @@ const LoginModal = ({ isOpen, onClose }) => {
                     {isRegistering ? '¿Ya te has registrado?' : '¿Eres nuevo en PintaBoard?'}
                     <button
                         type="button"
-                        onClick={() => setIsRegistering(!isRegistering)}
+                        onClick={switchMode}
                         className="text-redPrimary-300 font-bold hover:underline ml-1"
                     >
                         {isRegistering ? 'Iniciar sesión' : 'Crea una cuenta'}

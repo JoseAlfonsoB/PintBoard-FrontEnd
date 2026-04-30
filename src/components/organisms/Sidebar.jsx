@@ -1,12 +1,14 @@
 // src/components/organisms/Sidebar.jsx
 import React from 'react';
-import { useNavigate } from 'react-router-dom'; // 1. Importamos el hook de navegación
+import { useNavigate } from 'react-router-dom';
 import { Home, PlusCircle, LayoutGrid, LogOut } from 'lucide-react';
 import NavItem from '../molecules/NavItem';
 import UserSummary from '../molecules/UserSummary';
+import { useAuth } from '../../context/AuthContext';
 
 const Sidebar = () => {
-    const navigate = useNavigate(); // 2. Inicializamos navigate
+    const navigate = useNavigate();
+    const { user, profile, logout } = useAuth();
 
     const menuItems = [
         { label: 'Dashboard', icon: Home, to: '/app/dashboard' },
@@ -14,13 +16,14 @@ const Sidebar = () => {
         { label: 'Categorías', icon: LayoutGrid, to: '/app/categorias' },
     ];
 
-    // 3. Función para manejar el cierre de sesión
+    // Función para manejar el cierre de sesión
     const handleLogout = () => {
-        // Aquí podrías agregar lógica para limpiar el localStorage si fuera necesario
-        // localStorage.removeItem('user_session'); 
-
-        navigate('/'); // Redirige a la Landing Page
+        logout();
+        navigate('/');
     };
+
+    const displayName = profile?.first_name || user?.email?.split('@')[0] || 'Usuario';
+    const displayRole = profile?.role || user?.email || '';
 
     return (
         <aside className="w-64 h-screen bg-white border-r border-Neutral-200 flex flex-col justify-between p-6 fixed left-0 top-0">
@@ -49,10 +52,10 @@ const Sidebar = () => {
             {/* Sección Inferior: Usuario y Logout */}
             <div className="flex flex-col gap-4 border-t border-Neutral-100 pt-6">
                 <UserSummary
-                    name="Alfonso"
-                    role="FrontEnd Dev"
+                    name={displayName}
+                    role={displayRole}
+                    avatarUrl={profile?.avatar_url}
                 />
-                {/* 4. Conectamos la función al evento onClick */}
                 <button
                     onClick={handleLogout}
                     className="flex items-center gap-3 px-4 py-2 text-CafeSecondary-300 hover:text-redPrimary-300 transition-colors font-lato text-sm uppercase group"
